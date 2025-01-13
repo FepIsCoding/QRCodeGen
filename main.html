@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6e6e73;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(145deg, #007aff, #0051d4);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: linear-gradient(145deg, #0051d4, #007aff);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #qrcode {
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <p>Made by Fep with ❤️</p>
+        <input type="text" id="qrInput" placeholder="Enter text or URL">
+        <button class="button" onclick="generateQRCode()">Generate QR Code</button>
+        <div id="qrcode"></div>
+    </div>
+
+    <script>
+        function generateQRCode() {
+            const qrInput = document.getElementById('qrInput').value;
+            const qrCodeContainer = document.getElementById('qrcode');
+
+            // Clear any existing QR code
+            qrCodeContainer.innerHTML = "";
+
+            if (qrInput.trim() === "") {
+                alert("Please enter text or a URL to generate the QR code.");
+                return;
+            }
+
+            console.log("Generating QR Code for:", qrInput); // Debugging log
+
+            // Generate QR code
+            QRCode.toCanvas(qrInput, { width: 200 }, function (error, canvas) {
+                if (error) {
+                    console.error("QR Code generation error:", error);
+                    alert("Failed to generate QR Code. Check the console for errors.");
+                } else {
+                    qrCodeContainer.appendChild(canvas); // Append the canvas to the container
+                }
+            });
+        }
+    </script>
+</body>
+</html>
